@@ -1,0 +1,180 @@
+/* YETI · карта точек и фирменные пины
+   Пин — синяя капля с толстой обводкой и белым кружком, внутри логотип йети.
+   Активная точка становится тёмной и показывает подпись с адресом. */
+
+.yeti-map {
+  position: relative;
+  border: 2px solid #0E1A2B;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #DCEAFF;
+}
+
+.yeti-map__canvas {
+  width: 100%;
+  height: clamp(300px, 58vh, 420px);
+  opacity: 0;
+  transition: opacity .45s ease;
+}
+.yeti-map__canvas[data-ready="1"] { opacity: 1; }
+
+/* Запасной вариант: если JS-карта не загрузилась, показываем виджет Яндекса. */
+.yeti-map__frame {
+  width: 100%;
+  height: clamp(300px, 58vh, 420px);
+  border: 0;
+  display: block;
+  background: #DCEAFF;
+}
+
+/* Яндекс рисует свои копирайты — поднимаем их над нашей кнопкой. */
+.yeti-map .ymaps-2-1-79-copyright { z-index: 2; }
+
+/* ── Пин ─────────────────────────────────────────────────────────────── */
+
+.yeti-pin {
+  position: relative;
+  width: 46px;
+  height: 58px;
+  cursor: pointer;
+  transform-origin: 50% 100%;
+  transition: transform .22s cubic-bezier(.22, .8, .24, 1);
+  will-change: transform;
+}
+.yeti-pin:hover { transform: scale(1.1); }
+.yeti-pin[data-active="1"] { transform: scale(1.22); z-index: 5; }
+
+.yeti-pin__body {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 6px 10px rgba(14, 26, 43, .35));
+}
+.yeti-pin__shape {
+  fill: #1580F0;
+  stroke: #0E1A2B;
+  stroke-width: 3;
+  transition: fill .22s ease;
+}
+.yeti-pin[data-active="1"] .yeti-pin__shape { fill: #0E1A2B; }
+
+/* Кружок наверху капли с логотипом. */
+.yeti-pin__logo {
+  position: absolute;
+  left: 50%;
+  top: 5px;
+  width: 34px;
+  height: 34px;
+  margin-left: -17px;
+  border-radius: 999px;
+  background: #fff;
+  overflow: hidden;
+  display: block;
+  box-shadow: inset 0 0 0 1px rgba(14, 26, 43, .12);
+}
+/* Логотип шире кружка по высоте: видна только морда, надпись YETI обрезается.
+   !important — потому что Leaflet своим правилом сбрасывает картинкам ширину
+   (.leaflet-container .leaflet-marker-pane img { width: auto }). */
+.yeti-pin__logo img {
+  width: 30px !important;
+  height: auto !important;
+  max-width: none;
+  display: block;
+  margin: 3px auto 0;
+  pointer-events: none;
+}
+
+/* Подпись появляется у выбранной точки и при наведении. */
+.yeti-pin__label {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 4px);
+  transform: translateX(-50%) scale(.9);
+  transform-origin: 50% 100%;
+  padding: 5px 11px;
+  border: 2px solid #0E1A2B;
+  border-radius: 999px;
+  background: #fff;
+  color: #0E1A2B;
+  font-family: Unbounded, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+  box-shadow: 0 6px 14px rgba(14, 26, 43, .2);
+}
+.yeti-pin:hover .yeti-pin__label,
+.yeti-pin[data-active="1"] .yeti-pin__label {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+.yeti-pin[data-active="1"] .yeti-pin__label {
+  background: #1580F0;
+  color: #fff;
+  border-color: #0E1A2B;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yeti-pin, .yeti-pin__label, .yeti-pin__shape { transition: none; }
+}
+
+/* ── Слой своих пинов поверх Яндекс.Карты ────────────────────────────── */
+
+/* Слой лежит внутри карты и ездит вместе с ней. */
+.yeti-pins { position: absolute; left: 0; top: 0; }
+
+/* left/top обёртки — это остриё капли, то есть само место на карте. */
+.yeti-pin-slot {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  line-height: 0;
+}
+/* Выбранный и наведённый пин перекрывают соседние. */
+.yeti-pin-slot:hover { z-index: 9; }
+.yeti-pin-slot:has(.yeti-pin[data-active="1"]) { z-index: 10; }
+
+/* ── Оформление открытой карты (Leaflet) под стиль сайта ─────────────── */
+
+.leaflet-container {
+  font-family: Manrope, system-ui, sans-serif;
+  background: #DCEAFF;
+}
+
+/* Пин не должен получать белую подложку и обрезать подпись. */
+.yeti-pin-icon {
+  background: none;
+  border: 0;
+  overflow: visible;
+}
+
+.leaflet-bar,
+.leaflet-bar a,
+.leaflet-bar a:hover {
+  border-color: #0E1A2B;
+  color: #0E1A2B;
+}
+.leaflet-bar {
+  border: 2px solid #0E1A2B;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(14, 26, 43, .2);
+}
+.leaflet-bar a { font-weight: 700; }
+.leaflet-bar a:hover { background: #DCEAFF; }
+
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, .86);
+  border-radius: 8px 0 0 0;
+  font-size: 10px;
+  padding: 2px 6px;
+}
+.leaflet-control-attribution a { color: #1580F0; }
+
+/* Выбранный пин должен перекрывать соседние. */
+.leaflet-marker-icon:has(.yeti-pin[data-active="1"]) { z-index: 1000 !important; }
+

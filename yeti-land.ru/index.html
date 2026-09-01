@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YETI Samara — bubble tea</title>
+
+<!-- Настройки и данные сайта: правятся руками, см. README.md -->
+<script src="./js/config.js?v=7"></script>
+<script src="./data/menu.js?v=7"></script>
+<script src="./data/seasonal.js?v=7"></script>
+<script src="./data/points.js?v=7"></script>
+
+<!-- Код сайта -->
+<script src="./js/cards.js?v=7"></script>
+<script src="./js/order.js?v=7"></script>
+<script src="./js/pay.js?v=7"></script>
+<script src="./js/ui.js?v=7"></script>
+<script src="./js/map.js?v=7"></script>
+
+<!-- Движок, который собирает страницу. НЕ ТРОГАТЬ. -->
+<script src="./vendor/support.js?v=7"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles/base.css?v=6" />
+<link rel="stylesheet" href="styles/map.css?v=6" />
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="120" fill="#1580F0"/><circle cx="60" cy="58" r="22" fill="none" stroke="#fff" stroke-width="11"/><text x="60" y="103" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="15" fill="#fff">YETI</text></svg>
+</template>
+</helmet>
+
+<div style="max-width:1280px;margin:0 auto;padding:0 0 0 0;overflow-x:hidden">
+
+  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:16px;padding:12px 16px;background:rgba(231,240,255,0.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);will-change:transform;border-bottom:2px solid #0E1A2B">
+    <a href="#top" style="display:flex;align-items:center;gap:10px;flex:0 0 auto">
+      <img loading="eager" decoding="async" src="assets/brand/logo-yeti-text.png" alt="YETI" style="height:22px;width:auto;display:block" />
+    </a>
+    <nav data-nav="main" style="display:flex;gap:8px;margin-left:auto;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;font-family:Unbounded;font-weight:700;font-size:13px;text-transform:lowercase;padding:2px 0">
+      <a href="#pick" data-navlink="pick" style="flex:0 0 auto;display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:2px solid #0E1A2B;border-radius:999px;background:#fff;color:#0E1A2B;text-decoration:none;white-space:nowrap;transition:background .16s ease,color .16s ease">меню</a>
+      <a href="#new" data-navlink="new" style="flex:0 0 auto;display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:2px solid #0E1A2B;border-radius:999px;background:#fff;color:#0E1A2B;text-decoration:none;white-space:nowrap;transition:background .16s ease,color .16s ease">сезон</a>
+      <a href="#points" data-navlink="points" style="flex:0 0 auto;display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:2px solid #0E1A2B;border-radius:999px;background:#fff;color:#0E1A2B;text-decoration:none;white-space:nowrap;transition:background .16s ease,color .16s ease">точки</a>
+      <a href="#contacts" data-navlink="contacts" style="flex:0 0 auto;display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:2px solid #0E1A2B;border-radius:999px;background:#fff;color:#0E1A2B;text-decoration:none;white-space:nowrap;transition:background .16s ease,color .16s ease">контакты</a>
+    </nav>
+  </header>
+
+  <section id="top" style="position:relative;padding:28px 16px 8px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:22px;align-items:end">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:2px solid #0E1A2B;border-radius:999px;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;background:#1580F0;color:#fff">bubble tea · 6 точек в самаре</div>
+        <h1 style="font-family:Unbounded;font-weight:900;font-size:clamp(36px,6.4vw,68px);line-height:1.02;letter-spacing:-0.045em;margin:16px 0 0;text-wrap:balance">Не просто напиток —<br /><span style="color:#1580F0">твой вайб</span></h1>
+        <p style="font-size:17px;line-height:1.45;max-width:30ch;margin:16px 0 0;font-weight:500;text-wrap:pretty">Тапиока, фрукты, чай и наглая порция сиропа. Собери свой стакан и забери его на ближайшей точке.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px">
+          <a href="#pick" style="display:inline-flex;align-items:center;min-height:52px;padding:0 24px;border-radius:999px;background:#1580F0;color:#fff;font-family:Unbounded;font-weight:700;font-size:15px;border:2px solid #0E1A2B">Смотреть меню</a>
+          <a href="#points" style="display:inline-flex;align-items:center;min-height:52px;padding:0 24px;border-radius:999px;background:transparent;border:2px solid #0E1A2B;font-family:Unbounded;font-weight:700;font-size:15px">Где мы есть</a>
+        </div>
+      </div>
+      <div style="position:relative;border:2px solid #0E1A2B;border-radius:28px;overflow:hidden;background:#DCEAFF;width:100%;max-width:373px;aspect-ratio:427/640;margin-left:auto;margin-right:auto">
+        <img loading="eager" decoding="async" src="assets/brand/chef-yeti.webp" alt="Шеф YETI готовит на кухне" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;display:block" />
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:44px 16px 16px;background:linear-gradient(to top,rgba(14,26,43,0.92),rgba(14,26,43,0))">
+          <div style="display:inline-flex;padding:5px 11px;border-radius:999px;background:#1580F0;color:#fff;font-weight:800;font-size:10px;text-transform:uppercase;letter-spacing:0.1em">наш шеф</div>
+          <div style="font-family:Unbounded;font-weight:700;font-size:17px;color:#EAF2FF;margin-top:8px;line-height:1.25">YETI старается для вас</div>
+          <div style="font-size:13px;font-weight:600;color:rgba(234,242,255,0.8);margin-top:4px">Готовим со всеми тонкостями и любовью.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="overflow:hidden;border-top:2px solid #0E1A2B;border-bottom:2px solid #0E1A2B;background:#0E1A2B;margin-top:18px">
+    <div style="display:flex;width:max-content;animation:yeti-marquee 34s linear infinite;will-change:transform;backface-visibility:hidden">
+      <div style="display:flex;gap:28px;padding:11px 14px;font-family:Unbounded;font-weight:700;font-size:14px;color:#EAF2FF;text-transform:uppercase;white-space:nowrap">
+        <span>тапиока каждый день</span><span style="color:#6FB0FF">✱</span><span>6 точек в самаре</span><span style="color:#6FB0FF">✱</span><span>сезонные новинки</span><span style="color:#6FB0FF">✱</span><span>5-й стакан в подарок</span><span style="color:#6FB0FF">✱</span>
+        <span>тапиока каждый день</span><span style="color:#6FB0FF">✱</span><span>6 точек в самаре</span><span style="color:#6FB0FF">✱</span><span>сезонные новинки</span><span style="color:#6FB0FF">✱</span><span>5-й стакан в подарок</span><span style="color:#6FB0FF">✱</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="pick" style="padding:30px 16px 6px;scroll-margin-top:76px">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+      <h2 style="font-family:Unbounded;font-weight:900;font-size:clamp(24px,6vw,40px);line-height:0.95;letter-spacing:-0.04em;margin:0">Что будешь<span style="color:#1580F0">?</span></h2>
+      <span style="font-weight:700;font-size:13px;opacity:0.6">листай категории → тапни нужную</span>
+    </div>
+    <div data-catrail="1" style="display:flex;gap:6px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:pan-x;cursor:grab;padding:2px 2px 8px">
+      <sc-for list="{{ cupNav }}" as="c" hint-placeholder-count="6">
+        <a href="{{ c.href }}" onClick="{{ c.pick }}" onPointerEnter="{{ c.warm }}" onTouchStart="{{ c.warm }}" style="{{ c.style }}" style-active="transform:scale(0.97)">
+          <span style="{{ c.numStyle }}">{{ c.num }}</span>
+          <span style="{{ c.labelStyle }}">{{ c.label }}</span>
+          <span style="{{ c.metaStyle }}">{{ c.meta }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="bubble" style="{{ sec_bubble }}">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 16px 16px">
+      <h2 style="font-family:Unbounded;font-weight:900;font-size:clamp(28px,7vw,48px);line-height:0.95;letter-spacing:-0.04em;margin:0">Bubble&nbsp;tea<span style="color:#1580F0">.</span></h2>
+      <span style="font-weight:700;font-size:13px;opacity:0.6">тапиока варится каждое утро · 500 и 650 мл</span>
+    </div>
+    <div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:2px solid #0E1A2B;border-bottom:2px solid #0E1A2B;background:#DCEAFF;padding:16px">
+      <div data-strip="1" style="display:flex;width:max-content;gap:14px">
+        <sc-for list="{{ bubbleStrip }}" as="d" hint-placeholder-count="0">
+          <div style="{{ d.slotStyle }}">
+            <div onPointerDown="{{ d.flip }}" onPointerUp="{{ d.flip }}" onClick="{{ d.flip }}" data-cardid="{{ d.cardId }}" style="{{ d.innerStyle }}">
+              <figure style="{{ d.figStyle }}">
+                <div style="{{ d.frameStyle }}">
+                  <span style="{{ d.ringStyle }}"></span>
+                  <span style="{{ d.labelStyle }}">{{ d.name }}</span>
+                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ d.src }}" alt="{{ d.name }}" width="230" height="230" loading="lazy" decoding="async" fetchpriority="high" draggable="false" style="{{ d.imgStyle }}" />
+                  <span style="{{ d.badgeStyle }}">i</span>
+                </div>
+                <figcaption style="{{ d.capStyle }}">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:15px;line-height:1.15;overflow-wrap:normal;word-break:keep-all;hyphens:none">{{ d.name }}</span>
+                  <span style="font-family:Unbounded;font-weight:700;font-size:14px;color:#1580F0;white-space:nowrap;margin-top:6px">{{ d.price }}</span>
+                </figcaption>
+              </figure>
+              <div style="{{ d.backStyle }}">
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:clamp(12px,3.3vw,14px);line-height:1.15;overflow-wrap:break-word;hyphens:auto">{{ d.name }}</span>
+                </span>
+                <span style="display:block;height:2px;background:rgba(234,242,255,0.25);margin:9px 0 10px"></span>
+                <span style="display:block;font-weight:700;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;opacity:0.55;margin-bottom:4px">Состав</span>
+                <span style="display:block;font-weight:600;font-size:clamp(11px,3vw,12px);line-height:1.35;text-wrap:pretty;min-height:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">{{ d.composition }}</span>
+                <span style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:10px">
+                  <sc-for list="{{ d.nutrients }}" as="n" hint-placeholder-count="4">
+                    <span style="display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border-radius:11px;background:rgba(234,242,255,0.12);min-width:0;overflow:hidden">
+                      <span style="font-family:Unbounded;font-weight:700;font-size:clamp(10px,2.9vw,12px);color:#8FC4FF;white-space:nowrap">{{ n.val }}</span>
+                      <span style="font-weight:700;font-size:9px;letter-spacing:0.02em;text-transform:uppercase;opacity:0.6;white-space:nowrap">{{ n.label }}</span>
+                    </span>
+                  </sc-for>
+                </span>
+                <span style="{{ d.volRowStyle }}">
+                  <sc-for list="{{ d.volOpts }}" as="v" hint-placeholder-count="0">
+                    <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ v.pick }}" style="{{ v.style }}">
+                      <span style="{{ v.labelStyle }}">{{ v.label }}</span>
+                      <span style="{{ v.priceStyle }}">{{ v.price }}</span>
+                    </button>
+                  </sc-for>
+                </span>
+                <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ d.add }}" style="{{ d.addStyle }}">{{ d.addLabel }}</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="tea" style="{{ sec_tea }}">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 16px 16px">
+      <h2 style="font-family:Unbounded;font-weight:900;font-size:clamp(28px,7vw,48px);line-height:0.95;letter-spacing:-0.04em;margin:0">Tea<span style="color:#1580F0">.</span></h2>
+      <span style="font-weight:700;font-size:13px;opacity:0.6">завариваем на льду · без сахара по умолчанию</span>
+    </div>
+    <div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:2px solid #0E1A2B;border-bottom:2px solid #0E1A2B;background:#DCEAFF;padding:16px">
+      <div data-strip="1" style="display:flex;width:max-content;gap:14px">
+        <sc-for list="{{ teaStrip }}" as="d" hint-placeholder-count="0">
+          <div style="{{ d.slotStyle }}">
+            <div onPointerDown="{{ d.flip }}" onPointerUp="{{ d.flip }}" onClick="{{ d.flip }}" data-cardid="{{ d.cardId }}" style="{{ d.innerStyle }}">
+              <figure style="{{ d.figStyle }}">
+                <div style="{{ d.frameStyle }}">
+                  <span style="{{ d.ringStyle }}"></span>
+                  <span style="{{ d.labelStyle }}">{{ d.name }}</span>
+                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ d.src }}" alt="{{ d.name }}" width="230" height="230" loading="lazy" decoding="async" fetchpriority="high" draggable="false" style="{{ d.imgStyle }}" />
+                  <span style="{{ d.badgeStyle }}">i</span>
+                </div>
+                <figcaption style="{{ d.capStyle }}">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:15px;line-height:1.15;overflow-wrap:normal;word-break:keep-all;hyphens:none">{{ d.name }}</span>
+                  <span style="font-family:Unbounded;font-weight:700;font-size:14px;color:#1580F0;white-space:nowrap;margin-top:6px">{{ d.price }}</span>
+                </figcaption>
+              </figure>
+              <div style="{{ d.backStyle }}">
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:clamp(12px,3.3vw,14px);line-height:1.15;overflow-wrap:break-word;hyphens:auto">{{ d.name }}</span>
+                </span>
+                <span style="display:block;height:2px;background:rgba(234,242,255,0.25);margin:9px 0 10px"></span>
+                <span style="display:block;font-weight:700;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;opacity:0.55;margin-bottom:4px">Состав</span>
+                <span style="display:block;font-weight:600;font-size:clamp(11px,3vw,12px);line-height:1.35;text-wrap:pretty;min-height:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">{{ d.composition }}</span>
+                <span style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:10px">
+                  <sc-for list="{{ d.nutrients }}" as="n" hint-placeholder-count="4">
+                    <span style="display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border-radius:11px;background:rgba(234,242,255,0.12);min-width:0;overflow:hidden">
+                      <span style="font-family:Unbounded;font-weight:700;font-size:clamp(10px,2.9vw,12px);color:#8FC4FF;white-space:nowrap">{{ n.val }}</span>
+                      <span style="font-weight:700;font-size:9px;letter-spacing:0.02em;text-transform:uppercase;opacity:0.6;white-space:nowrap">{{ n.label }}</span>
+                    </span>
+                  </sc-for>
+                </span>
+                <span style="{{ d.volRowStyle }}">
+                  <sc-for list="{{ d.volOpts }}" as="v" hint-placeholder-count="0">
+                    <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ v.pick }}" style="{{ v.style }}">
+                      <span style="{{ v.labelStyle }}">{{ v.label }}</span>
+                      <span style="{{ v.priceStyle }}">{{ v.price }}</span>
+                    </button>
+                  </sc-for>
+                </span>
+                <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ d.add }}" style="{{ d.addStyle }}">{{ d.addLabel }}</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="mochi" style="{{ sec_mochi }}">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 16px 16px">
+      <h2 style="font-family:Unbounded;font-weight:900;font-size:clamp(28px,7vw,48px);line-height:0.95;letter-spacing:-0.04em;margin:0">Moti<span style="color:#1580F0">.</span></h2>
+      <span style="font-weight:700;font-size:13px;opacity:0.6">рисовое тесто · холодная начинка · 220 ₽ за штуку</span>
+    </div>
+    <div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:2px solid #0E1A2B;border-bottom:2px solid #0E1A2B;background:#DCEAFF;padding:16px">
+      <div data-strip="1" style="display:flex;width:max-content;gap:14px">
+        <sc-for list="{{ mochiStrip }}" as="d" hint-placeholder-count="0">
+          <div style="{{ d.slotStyle }}">
+            <div onPointerDown="{{ d.flip }}" onPointerUp="{{ d.flip }}" onClick="{{ d.flip }}" data-cardid="{{ d.cardId }}" style="{{ d.innerStyle }}">
+              <figure style="{{ d.figStyle }}">
+                <div style="{{ d.frameStyle }}">
+                  <span style="{{ d.ringStyle }}"></span>
+                  <span style="{{ d.labelStyle }}">{{ d.name }}</span>
+                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ d.src }}" alt="{{ d.name }}" width="230" height="230" loading="lazy" decoding="async" fetchpriority="high" draggable="false" style="{{ d.imgStyle }}" />
+                  <span style="{{ d.badgeStyle }}">i</span>
+                </div>
+                <figcaption style="{{ d.capStyle }}">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:15px;line-height:1.15;overflow-wrap:normal;word-break:keep-all;hyphens:none">{{ d.name }}</span>
+                  <span style="font-family:Unbounded;font-weight:700;font-size:14px;color:#1580F0;white-space:nowrap;margin-top:6px">{{ d.price }}</span>
+                </figcaption>
+              </figure>
+              <div style="{{ d.backStyle }}">
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:clamp(12px,3.3vw,14px);line-height:1.15;overflow-wrap:break-word;hyphens:auto">{{ d.name }}</span>
+                </span>
+                <span style="display:block;height:2px;background:rgba(234,242,255,0.25);margin:9px 0 10px"></span>
+                <span style="display:block;font-weight:700;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;opacity:0.55;margin-bottom:4px">Состав</span>
+                <span style="display:block;font-weight:600;font-size:clamp(11px,3vw,12px);line-height:1.35;text-wrap:pretty;min-height:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">{{ d.composition }}</span>
+                <span style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:10px">
+                  <sc-for list="{{ d.nutrients }}" as="n" hint-placeholder-count="4">
+                    <span style="display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border-radius:11px;background:rgba(234,242,255,0.12);min-width:0;overflow:hidden">
+                      <span style="font-family:Unbounded;font-weight:700;font-size:clamp(10px,2.9vw,12px);color:#8FC4FF;white-space:nowrap">{{ n.val }}</span>
+                      <span style="font-weight:700;font-size:9px;letter-spacing:0.02em;text-transform:uppercase;opacity:0.6;white-space:nowrap">{{ n.label }}</span>
+                    </span>
+                  </sc-for>
+                </span>
+                <span style="{{ d.volRowStyle }}">
+                  <sc-for list="{{ d.volOpts }}" as="v" hint-placeholder-count="0">
+                    <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ v.pick }}" style="{{ v.style }}">
+                      <span style="{{ v.labelStyle }}">{{ v.label }}</span>
+                      <span style="{{ v.priceStyle }}">{{ v.price }}</span>
+                    </button>
+                  </sc-for>
+                </span>
+                <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ d.add }}" style="{{ d.addStyle }}">{{ d.addLabel }}</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="matcha" style="{{ sec_matcha }}">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 16px 16px">
+      <h2 style="font-family:Unbounded;font-weight:900;font-size:clamp(28px,7vw,48px);line-height:0.95;letter-spacing:-0.04em;margin:0">Matcha<span style="color:#1580F0">.</span></h2>
+      <span style="font-weight:700;font-size:13px;opacity:0.6">500 / 650 мл · 445 / 495 ₽</span>
+    </div>
+    <div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:2px solid #0E1A2B;border-bottom:2px solid #0E1A2B;background:#DCEAFF;padding:16px">
+      <div data-strip="1" style="display:flex;width:max-content;gap:14px">
+        <sc-for list="{{ matchaStrip }}" as="d" hint-placeholder-count="0">
+          <div style="{{ d.slotStyle }}">
+            <div onPointerDown="{{ d.flip }}" onPointerUp="{{ d.flip }}" onClick="{{ d.flip }}" data-cardid="{{ d.cardId }}" style="{{ d.innerStyle }}">
+              <figure style="{{ d.figStyle }}">
+                <div style="{{ d.frameStyle }}">
+                  <span style="{{ d.ringStyle }}"></span>
+                  <span style="{{ d.labelStyle }}">{{ d.name }}</span>
+                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ d.src }}" alt="{{ d.name }}" width="230" height="230" loading="lazy" decoding="async" fetchpriority="high" draggable="false" style="{{ d.imgStyle }}" />
+                  <span style="{{ d.badgeStyle }}">i</span>
+                </div>
+                <figcaption style="{{ d.capStyle }}">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:15px;line-height:1.15;overflow-wrap:normal;word-break:keep-all;hyphens:none">{{ d.name }}</span>
+                  <span style="font-family:Unbounded;font-weight:700;font-size:14px;color:#1580F0;white-space:nowrap;margin-top:6px">{{ d.price }}</span>
+                </figcaption>
+              </figure>
+              <div style="{{ d.backStyle }}">
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:clamp(12px,3.3vw,14px);line-height:1.15;overflow-wrap:break-word;hyphens:auto">{{ d.name }}</span>
+                </span>
+                <span style="display:block;height:2px;background:rgba(234,242,255,0.25);margin:9px 0 10px"></span>
+                <span style="display:block;font-weight:700;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;opacity:0.55;margin-bottom:4px">Состав</span>
+                <span style="display:block;font-weight:600;font-size:clamp(11px,3vw,12px);line-height:1.35;text-wrap:pretty;min-height:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">{{ d.composition }}</span>
+                <span style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:10px">
+                  <sc-for list="{{ d.nutrients }}" as="n" hint-placeholder-count="4">
+                    <span style="display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border-radius:11px;background:rgba(234,242,255,0.12);min-width:0;overflow:hidden">
+                      <span style="font-family:Unbounded;font-weight:700;font-size:clamp(10px,2.9vw,12px);color:#8FC4FF;white-space:nowrap">{{ n.val }}</span>
+                      <span style="font-weight:700;font-size:9px;letter-spacing:0.02em;text-transform:uppercase;opacity:0.6;white-space:nowrap">{{ n.label }}</span>
+                    </span>
+                  </sc-for>
+                </span>
+                <span style="{{ d.volRowStyle }}">
+                  <sc-for list="{{ d.volOpts }}" as="v" hint-placeholder-count="0">
+                    <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ v.pick }}" style="{{ v.style }}">
+                      <span style="{{ v.labelStyle }}">{{ v.label }}</span>
+                      <span style="{{ v.priceStyle }}">{{ v.price }}</span>
+                    </button>
+                  </sc-for>
+                </span>
+                <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ d.add }}" style="{{ d.addStyle }}">{{ d.addLabel }}</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="cheese" style="{{ sec_cheese }}">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 16px 16px">
+      <h2 style="font-family:Unbounded;font-weight:900;font-size:clamp(28px,7vw,48px);line-height:0.95;letter-spacing:-0.04em;margin:0">Cream cheese<span style="color:#1580F0">.</span></h2>
+      <span style="font-weight:700;font-size:13px;opacity:0.6">500 / 650 мл · 445 / 495 ₽</span>
+    </div>
+    <div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:2px solid #0E1A2B;border-bottom:2px solid #0E1A2B;background:#DCEAFF;padding:16px">
+      <div data-strip="1" style="display:flex;width:max-content;gap:14px">
+        <sc-for list="{{ cheeseStrip }}" as="d" hint-placeholder-count="0">
+          <div style="{{ d.slotStyle }}">
+            <div onPointerDown="{{ d.flip }}" onPointerUp="{{ d.flip }}" onClick="{{ d.flip }}" data-cardid="{{ d.cardId }}" style="{{ d.innerStyle }}">
+              <figure style="{{ d.figStyle }}">
+                <div style="{{ d.frameStyle }}">
+                  <span style="{{ d.ringStyle }}"></span>
+                  <span style="{{ d.labelStyle }}">{{ d.name }}</span>
+                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ d.src }}" alt="{{ d.name }}" width="230" height="230" loading="lazy" decoding="async" fetchpriority="high" draggable="false" style="{{ d.imgStyle }}" />
+                  <span style="{{ d.badgeStyle }}">i</span>
+                </div>
+                <figcaption style="{{ d.capStyle }}">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:15px;line-height:1.15;overflow-wrap:normal;word-break:keep-all;hyphens:none">{{ d.name }}</span>
+                  <span style="font-family:Unbounded;font-weight:700;font-size:14px;color:#1580F0;white-space:nowrap;margin-top:6px">{{ d.price }}</span>
+                </figcaption>
+              </figure>
+              <div style="{{ d.backStyle }}">
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:clamp(12px,3.3vw,14px);line-height:1.15;overflow-wrap:break-word;hyphens:auto">{{ d.name }}</span>
+                </span>
+                <span style="display:block;height:2px;background:rgba(234,242,255,0.25);margin:9px 0 10px"></span>
+                <span style="display:block;font-weight:700;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;opacity:0.55;margin-bottom:4px">Состав</span>
+                <span style="display:block;font-weight:600;font-size:clamp(11px,3vw,12px);line-height:1.35;text-wrap:pretty;min-height:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">{{ d.composition }}</span>
+                <span style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:10px">
+                  <sc-for list="{{ d.nutrients }}" as="n" hint-placeholder-count="4">
+                    <span style="display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border-radius:11px;background:rgba(234,242,255,0.12);min-width:0;overflow:hidden">
+                      <span style="font-family:Unbounded;font-weight:700;font-size:clamp(10px,2.9vw,12px);color:#8FC4FF;white-space:nowrap">{{ n.val }}</span>
+                      <span style="font-weight:700;font-size:9px;letter-spacing:0.02em;text-transform:uppercase;opacity:0.6;white-space:nowrap">{{ n.label }}</span>
+                    </span>
+                  </sc-for>
+                </span>
+                <span style="{{ d.volRowStyle }}">
+                  <sc-for list="{{ d.volOpts }}" as="v" hint-placeholder-count="0">
+                    <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ v.pick }}" style="{{ v.style }}">
+                      <span style="{{ v.labelStyle }}">{{ v.label }}</span>
+                      <span style="{{ v.priceStyle }}">{{ v.price }}</span>
+                    </button>
+                  </sc-for>
+                </span>
+                <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ d.add }}" style="{{ d.addStyle }}">{{ d.addLabel }}</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="icecoffee" style="{{ sec_icecoffee }}">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 16px 16px">
+      <h2 style="font-family:Unbounded;font-weight:900;font-size:clamp(28px,7vw,48px);line-height:0.95;letter-spacing:-0.04em;margin:0">Ice coffee<span style="color:#1580F0">.</span></h2>
+      <span style="font-weight:700;font-size:13px;opacity:0.6">500 / 650 мл · 445 / 495 ₽</span>
+    </div>
+    <div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:2px solid #0E1A2B;border-bottom:2px solid #0E1A2B;background:#DCEAFF;padding:16px">
+      <div data-strip="1" style="display:flex;width:max-content;gap:14px">
+        <sc-for list="{{ iceStrip }}" as="d" hint-placeholder-count="0">
+          <div style="{{ d.slotStyle }}">
+            <div onPointerDown="{{ d.flip }}" onPointerUp="{{ d.flip }}" onClick="{{ d.flip }}" data-cardid="{{ d.cardId }}" style="{{ d.innerStyle }}">
+              <figure style="{{ d.figStyle }}">
+                <div style="{{ d.frameStyle }}">
+                  <span style="{{ d.ringStyle }}"></span>
+                  <span style="{{ d.labelStyle }}">{{ d.name }}</span>
+                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ d.src }}" alt="{{ d.name }}" width="230" height="230" loading="lazy" decoding="async" fetchpriority="high" draggable="false" style="{{ d.imgStyle }}" />
+                  <span style="{{ d.badgeStyle }}">i</span>
+                </div>
+                <figcaption style="{{ d.capStyle }}">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:15px;line-height:1.15;overflow-wrap:normal;word-break:keep-all;hyphens:none">{{ d.name }}</span>
+                  <span style="font-family:Unbounded;font-weight:700;font-size:14px;color:#1580F0;white-space:nowrap;margin-top:6px">{{ d.price }}</span>
+                </figcaption>
+              </figure>
+              <div style="{{ d.backStyle }}">
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:clamp(12px,3.3vw,14px);line-height:1.15;overflow-wrap:break-word;hyphens:auto">{{ d.name }}</span>
+                </span>
+                <span style="display:block;height:2px;background:rgba(234,242,255,0.25);margin:9px 0 10px"></span>
+                <span style="display:block;font-weight:700;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;opacity:0.55;margin-bottom:4px">Состав</span>
+                <span style="display:block;font-weight:600;font-size:clamp(11px,3vw,12px);line-height:1.35;text-wrap:pretty;min-height:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">{{ d.composition }}</span>
+                <span style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:10px">
+                  <sc-for list="{{ d.nutrients }}" as="n" hint-placeholder-count="4">
+                    <span style="display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border-radius:11px;background:rgba(234,242,255,0.12);min-width:0;overflow:hidden">
+                      <span style="font-family:Unbounded;font-weight:700;font-size:clamp(10px,2.9vw,12px);color:#8FC4FF;white-space:nowrap">{{ n.val }}</span>
+                      <span style="font-weight:700;font-size:9px;letter-spacing:0.02em;text-transform:uppercase;opacity:0.6;white-space:nowrap">{{ n.label }}</span>
+                    </span>
+                  </sc-for>
+                </span>
+                <span style="{{ d.volRowStyle }}">
+                  <sc-for list="{{ d.volOpts }}" as="v" hint-placeholder-count="0">
+                    <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ v.pick }}" style="{{ v.style }}">
+                      <span style="{{ v.labelStyle }}">{{ v.label }}</span>
+                      <span style="{{ v.priceStyle }}">{{ v.price }}</span>
+                    </button>
+                  </sc-for>
+                </span>
+                <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ d.add }}" style="{{ d.addStyle }}">{{ d.addLabel }}</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="colddrink" style="{{ sec_colddrink }}">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 16px 16px">
+      <h2 style="font-family:Unbounded;font-weight:900;font-size:clamp(28px,7vw,48px);line-height:0.95;letter-spacing:-0.04em;margin:0">Cold drinks<span style="color:#1580F0">.</span></h2>
+      <span style="font-weight:700;font-size:13px;opacity:0.6">500 / 650 мл · 445 / 495 ₽</span>
+    </div>
+    <div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:2px solid #0E1A2B;border-bottom:2px solid #0E1A2B;background:#DCEAFF;padding:16px">
+      <div data-strip="1" style="display:flex;width:max-content;gap:14px">
+        <sc-for list="{{ coldStrip }}" as="d" hint-placeholder-count="0">
+          <div style="{{ d.slotStyle }}">
+            <div onPointerDown="{{ d.flip }}" onPointerUp="{{ d.flip }}" onClick="{{ d.flip }}" data-cardid="{{ d.cardId }}" style="{{ d.innerStyle }}">
+              <figure style="{{ d.figStyle }}">
+                <div style="{{ d.frameStyle }}">
+                  <span style="{{ d.ringStyle }}"></span>
+                  <span style="{{ d.labelStyle }}">{{ d.name }}</span>
+                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ d.src }}" alt="{{ d.name }}" width="230" height="230" loading="lazy" decoding="async" fetchpriority="high" draggable="false" style="{{ d.imgStyle }}" />
+                  <span style="{{ d.badgeStyle }}">i</span>
+                </div>
+                <figcaption style="{{ d.capStyle }}">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:15px;line-height:1.15;overflow-wrap:normal;word-break:keep-all;hyphens:none">{{ d.name }}</span>
+                  <span style="font-family:Unbounded;font-weight:700;font-size:14px;color:#1580F0;white-space:nowrap;margin-top:6px">{{ d.price }}</span>
+                </figcaption>
+              </figure>
+              <div style="{{ d.backStyle }}">
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:clamp(12px,3.3vw,14px);line-height:1.15;overflow-wrap:break-word;hyphens:auto">{{ d.name }}</span>
+                </span>
+                <span style="display:block;height:2px;background:rgba(234,242,255,0.25);margin:9px 0 10px"></span>
+                <span style="display:block;font-weight:700;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;opacity:0.55;margin-bottom:4px">Состав</span>
+                <span style="display:block;font-weight:600;font-size:clamp(11px,3vw,12px);line-height:1.35;text-wrap:pretty;min-height:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">{{ d.composition }}</span>
+                <span style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:10px">
+                  <sc-for list="{{ d.nutrients }}" as="n" hint-placeholder-count="4">
+                    <span style="display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border-radius:11px;background:rgba(234,242,255,0.12);min-width:0;overflow:hidden">
+                      <span style="font-family:Unbounded;font-weight:700;font-size:clamp(10px,2.9vw,12px);color:#8FC4FF;white-space:nowrap">{{ n.val }}</span>
+                      <span style="font-weight:700;font-size:9px;letter-spacing:0.02em;text-transform:uppercase;opacity:0.6;white-space:nowrap">{{ n.label }}</span>
+                    </span>
+                  </sc-for>
+                </span>
+                <span style="{{ d.volRowStyle }}">
+                  <sc-for list="{{ d.volOpts }}" as="v" hint-placeholder-count="0">
+                    <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ v.pick }}" style="{{ v.style }}">
+                      <span style="{{ v.labelStyle }}">{{ v.label }}</span>
+                      <span style="{{ v.priceStyle }}">{{ v.price }}</span>
+                    </button>
+                  </sc-for>
+                </span>
+                <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ d.add }}" style="{{ d.addStyle }}">{{ d.addLabel }}</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="coffee" style="{{ sec_coffee }}">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 16px 16px">
+      <h2 style="font-family:Unbounded;font-weight:900;font-size:clamp(28px,7vw,48px);line-height:0.95;letter-spacing:-0.04em;margin:0">Coffee<span style="color:#1580F0">.</span></h2>
+      <span style="font-weight:700;font-size:13px;opacity:0.6">зерно обжарки недели · альтернативное молоко</span>
+    </div>
+    <div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:2px solid #0E1A2B;border-bottom:2px solid #0E1A2B;background:#DCEAFF;padding:16px">
+      <div data-strip="1" style="display:flex;width:max-content;gap:14px">
+        <sc-for list="{{ coffeeStrip }}" as="d" hint-placeholder-count="0">
+          <div style="{{ d.slotStyle }}">
+            <div onPointerDown="{{ d.flip }}" onPointerUp="{{ d.flip }}" onClick="{{ d.flip }}" data-cardid="{{ d.cardId }}" style="{{ d.innerStyle }}">
+              <figure style="{{ d.figStyle }}">
+                <div style="{{ d.frameStyle }}">
+                  <span style="{{ d.ringStyle }}"></span>
+                  <span style="{{ d.labelStyle }}">{{ d.name }}</span>
+                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ d.src }}" alt="{{ d.name }}" width="230" height="230" loading="lazy" decoding="async" fetchpriority="high" draggable="false" style="{{ d.imgStyle }}" />
+                  <span style="{{ d.badgeStyle }}">i</span>
+                </div>
+                <figcaption style="{{ d.capStyle }}">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:15px;line-height:1.15;overflow-wrap:normal;word-break:keep-all;hyphens:none">{{ d.name }}</span>
+                  <span style="font-family:Unbounded;font-weight:700;font-size:14px;color:#1580F0;white-space:nowrap;margin-top:6px">{{ d.price }}</span>
+                </figcaption>
+              </figure>
+              <div style="{{ d.backStyle }}">
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:clamp(12px,3.3vw,14px);line-height:1.15;overflow-wrap:break-word;hyphens:auto">{{ d.name }}</span>
+                </span>
+                <span style="display:block;height:2px;background:rgba(234,242,255,0.25);margin:9px 0 10px"></span>
+                <span style="display:block;font-weight:700;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;opacity:0.55;margin-bottom:4px">Состав</span>
+                <span style="display:block;font-weight:600;font-size:clamp(11px,3vw,12px);line-height:1.35;text-wrap:pretty;min-height:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">{{ d.composition }}</span>
+                <span style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:10px">
+                  <sc-for list="{{ d.nutrients }}" as="n" hint-placeholder-count="4">
+                    <span style="display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border-radius:11px;background:rgba(234,242,255,0.12);min-width:0;overflow:hidden">
+                      <span style="font-family:Unbounded;font-weight:700;font-size:clamp(10px,2.9vw,12px);color:#8FC4FF;white-space:nowrap">{{ n.val }}</span>
+                      <span style="font-weight:700;font-size:9px;letter-spacing:0.02em;text-transform:uppercase;opacity:0.6;white-space:nowrap">{{ n.label }}</span>
+                    </span>
+                  </sc-for>
+                </span>
+                <span style="{{ d.volRowStyle }}">
+                  <sc-for list="{{ d.volOpts }}" as="v" hint-placeholder-count="0">
+                    <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ v.pick }}" style="{{ v.style }}">
+                      <span style="{{ v.labelStyle }}">{{ v.label }}</span>
+                      <span style="{{ v.priceStyle }}">{{ v.price }}</span>
+                    </button>
+                  </sc-for>
+                </span>
+                <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ d.add }}" style="{{ d.addStyle }}">{{ d.addLabel }}</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="donuts" style="{{ sec_donuts }}">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 16px 16px">
+      <h2 style="font-family:Unbounded;font-weight:900;font-size:clamp(28px,7vw,48px);line-height:0.95;letter-spacing:-0.04em;margin:0">Donut<span style="color:#1580F0">.</span></h2>
+      <span style="font-weight:700;font-size:13px;opacity:0.6">жарим утром · 270 ₽ за штуку</span>
+    </div>
+    <div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:2px solid #0E1A2B;border-bottom:2px solid #0E1A2B;background:#DCEAFF;padding:16px">
+      <div data-strip="1" style="display:flex;width:max-content;gap:14px">
+        <sc-for list="{{ donutStrip }}" as="d" hint-placeholder-count="0">
+          <div style="{{ d.slotStyle }}">
+            <div onPointerDown="{{ d.flip }}" onPointerUp="{{ d.flip }}" onClick="{{ d.flip }}" data-cardid="{{ d.cardId }}" style="{{ d.innerStyle }}">
+              <figure style="{{ d.figStyle }}">
+                <div style="{{ d.frameStyle }}">
+                  <span style="{{ d.ringStyle }}"></span>
+                  <span style="{{ d.labelStyle }}">{{ d.name }}</span>
+                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ d.src }}" alt="{{ d.name }}" width="230" height="230" loading="lazy" decoding="async" fetchpriority="high" draggable="false" style="{{ d.imgStyle }}" />
+                  <span style="{{ d.badgeStyle }}">i</span>
+                </div>
+                <figcaption style="{{ d.capStyle }}">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:15px;line-height:1.15;overflow-wrap:normal;word-break:keep-all;hyphens:none">{{ d.name }}</span>
+                  <span style="font-family:Unbounded;font-weight:700;font-size:14px;color:#1580F0;white-space:nowrap;margin-top:6px">{{ d.price }}</span>
+                </figcaption>
+              </figure>
+              <div style="{{ d.backStyle }}">
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:clamp(12px,3.3vw,14px);line-height:1.15;overflow-wrap:break-word;hyphens:auto">{{ d.name }}</span>
+                </span>
+                <span style="display:block;height:2px;background:rgba(234,242,255,0.25);margin:9px 0 10px"></span>
+                <span style="display:block;font-weight:700;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;opacity:0.55;margin-bottom:4px">Состав</span>
+                <span style="display:block;font-weight:600;font-size:clamp(11px,3vw,12px);line-height:1.35;text-wrap:pretty;min-height:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">{{ d.composition }}</span>
+                <span style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:10px">
+                  <sc-for list="{{ d.nutrients }}" as="n" hint-placeholder-count="4">
+                    <span style="display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border-radius:11px;background:rgba(234,242,255,0.12);min-width:0;overflow:hidden">
+                      <span style="font-family:Unbounded;font-weight:700;font-size:clamp(10px,2.9vw,12px);color:#8FC4FF;white-space:nowrap">{{ n.val }}</span>
+                      <span style="font-weight:700;font-size:9px;letter-spacing:0.02em;text-transform:uppercase;opacity:0.6;white-space:nowrap">{{ n.label }}</span>
+                    </span>
+                  </sc-for>
+                </span>
+                <span style="{{ d.volRowStyle }}">
+                  <sc-for list="{{ d.volOpts }}" as="v" hint-placeholder-count="0">
+                    <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ v.pick }}" style="{{ v.style }}">
+                      <span style="{{ v.labelStyle }}">{{ v.label }}</span>
+                      <span style="{{ v.priceStyle }}">{{ v.price }}</span>
+                    </button>
+                  </sc-for>
+                </span>
+                <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ d.add }}" style="{{ d.addStyle }}">{{ d.addLabel }}</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="poke" style="{{ sec_poke }}">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 16px 16px">
+      <h2 style="font-family:Unbounded;font-weight:900;font-size:clamp(28px,7vw,48px);line-height:0.95;letter-spacing:-0.04em;margin:0">Poke<span style="color:#1580F0">.</span></h2>
+      <span style="font-weight:700;font-size:13px;opacity:0.6">собираем при вас · рис или киноа</span>
+    </div>
+    <div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:2px solid #0E1A2B;border-bottom:2px solid #0E1A2B;background:#DCEAFF;padding:16px">
+      <div data-strip="1" style="display:flex;width:max-content;gap:14px">
+        <sc-for list="{{ pokeStrip }}" as="d" hint-placeholder-count="0">
+          <div style="{{ d.slotStyle }}">
+            <div onPointerDown="{{ d.flip }}" onPointerUp="{{ d.flip }}" onClick="{{ d.flip }}" data-cardid="{{ d.cardId }}" style="{{ d.innerStyle }}">
+              <figure style="{{ d.figStyle }}">
+                <div style="{{ d.frameStyle }}">
+                  <span style="{{ d.ringStyle }}"></span>
+                  <span style="{{ d.labelStyle }}">{{ d.name }}</span>
+                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ d.src }}" alt="{{ d.name }}" width="230" height="230" loading="lazy" decoding="async" fetchpriority="high" draggable="false" style="{{ d.imgStyle }}" />
+                  <span style="{{ d.badgeStyle }}">i</span>
+                </div>
+                <figcaption style="{{ d.capStyle }}">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:15px;line-height:1.15;overflow-wrap:normal;word-break:keep-all;hyphens:none">{{ d.name }}</span>
+                  <span style="font-family:Unbounded;font-weight:700;font-size:14px;color:#1580F0;white-space:nowrap;margin-top:6px">{{ d.price }}</span>
+                </figcaption>
+              </figure>
+              <div style="{{ d.backStyle }}">
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:clamp(12px,3.3vw,14px);line-height:1.15;overflow-wrap:break-word;hyphens:auto">{{ d.name }}</span>
+                </span>
+                <span style="display:block;height:2px;background:rgba(234,242,255,0.25);margin:9px 0 10px"></span>
+                <span style="display:block;font-weight:700;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;opacity:0.55;margin-bottom:4px">Состав</span>
+                <span style="display:block;font-weight:600;font-size:clamp(11px,3vw,12px);line-height:1.35;text-wrap:pretty;min-height:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">{{ d.composition }}</span>
+                <span style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:10px">
+                  <sc-for list="{{ d.nutrients }}" as="n" hint-placeholder-count="4">
+                    <span style="display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border-radius:11px;background:rgba(234,242,255,0.12);min-width:0;overflow:hidden">
+                      <span style="font-family:Unbounded;font-weight:700;font-size:clamp(10px,2.9vw,12px);color:#8FC4FF;white-space:nowrap">{{ n.val }}</span>
+                      <span style="font-weight:700;font-size:9px;letter-spacing:0.02em;text-transform:uppercase;opacity:0.6;white-space:nowrap">{{ n.label }}</span>
+                    </span>
+                  </sc-for>
+                </span>
+                <span style="{{ d.volRowStyle }}">
+                  <sc-for list="{{ d.volOpts }}" as="v" hint-placeholder-count="0">
+                    <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ v.pick }}" style="{{ v.style }}">
+                      <span style="{{ v.labelStyle }}">{{ v.label }}</span>
+                      <span style="{{ v.priceStyle }}">{{ v.price }}</span>
+                    </button>
+                  </sc-for>
+                </span>
+                <button type="button" onPointerDown="{{ d.stop }}" onClick="{{ d.add }}" style="{{ d.addStyle }}">{{ d.addLabel }}</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="new" style="padding:44px 16px 0;scroll-margin-top:76px">
+    <h2 style="font-family:Unbounded;font-weight:900;font-size:clamp(30px,8vw,56px);line-height:0.95;letter-spacing:-0.04em;margin:0 0 6px">Сезонные напитки<span style="color:#1580F0">.</span></h2>
+    <p style="margin:0;font-weight:500;font-size:16px;opacity:0.7">Четыре вкуса лета, только 650 мл. Тапни карточку — состав и КБЖУ.</p>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px;max-width:560px">
+      <sc-for list="{{ seasonal }}" as="s" hint-placeholder-count="0">
+        <div style="{{ s.slotStyle }}">
+          <div onPointerDown="{{ s.flip }}" onPointerUp="{{ s.flip }}" onClick="{{ s.flip }}" style="{{ s.innerStyle }}">
+            <article style="position:absolute;inset:0;border:2px solid #0E1A2B;border-radius:24px;overflow:hidden;background:#1580F0;color:#fff;display:flex;flex-direction:column;backface-visibility:hidden;-webkit-backface-visibility:hidden">
+              <div style="position:relative;flex:0 0 auto;aspect-ratio:1/1;background:repeating-linear-gradient(115deg,rgba(255,255,255,0.22) 0 12px,transparent 12px 24px);border-bottom:2px solid #0E1A2B">
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ s.src }}" alt="{{ s.name }}" width="300" height="300" loading="eager" decoding="async" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block" />
+                <span style="position:absolute;right:8px;bottom:8px;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:999px;background:#0E1A2B;color:#fff;font-family:Unbounded;font-weight:700;font-size:12px;line-height:1">i</span>
+              </div>
+              <div style="padding:8px 11px 10px;flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;gap:4px">
+                <div style="font-family:Unbounded;font-weight:700;font-size:13px;line-height:1.1">{{ s.name }}</div>
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px">
+                  <span style="font-weight:700;font-size:9px;letter-spacing:0.07em;text-transform:uppercase;opacity:0.7">{{ s.vol }}</span>
+                  <span style="font-family:Unbounded;font-weight:900;font-size:14px">{{ s.price }}</span>
+                </div>
+              </div>
+            </article>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;padding:13px 12px;background:#0E1A2B;color:#EAF2FF;border:2px solid #0E1A2B;border-radius:24px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg)">
+              <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                <span style="font-family:Unbounded;font-weight:700;font-size:clamp(12px,3.3vw,14px);line-height:1.15;overflow-wrap:break-word;hyphens:auto">{{ s.name }}</span>
+                <span style="font-weight:800;font-size:11px;opacity:0.6;white-space:nowrap">{{ s.vol }}</span>
+              </span>
+              <span style="display:block;height:2px;background:rgba(234,242,255,0.25);margin:9px 0 10px"></span>
+              <span style="display:block;font-weight:700;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;opacity:0.55;margin-bottom:4px">Состав</span>
+              <span style="display:block;font-weight:600;font-size:clamp(11px,3vw,12px);line-height:1.35;text-wrap:pretty;min-height:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">{{ s.comp }}</span>
+              <span style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:10px">
+                <sc-for list="{{ s.nutrients }}" as="n" hint-placeholder-count="4">
+                  <span style="display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border-radius:11px;background:rgba(234,242,255,0.12);min-width:0;overflow:hidden">
+                    <span style="font-family:Unbounded;font-weight:700;font-size:clamp(10px,2.9vw,12px);color:#8FC4FF;white-space:nowrap">{{ n.val }}</span>
+                    <span style="font-weight:700;font-size:9px;letter-spacing:0.02em;text-transform:uppercase;opacity:0.6;white-space:nowrap">{{ n.label }}</span>
+                  </span>
+                </sc-for>
+              </span>
+              <button type="button" onPointerDown="{{ s.stop }}" onClick="{{ s.add }}" style="{{ s.addStyle }}">{{ s.addLabel }}</button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="points" style="padding:44px 16px 0;scroll-margin-top:76px">
+    <h2 style="font-family:Unbounded;font-weight:900;font-size:clamp(30px,8vw,56px);line-height:0.95;letter-spacing:-0.04em;margin:0 0 6px">Наши точки</h2>
+    <p style="margin:0 0 18px;font-weight:500;font-size:16px;opacity:0.7">Шесть адресов в Самаре — тапни адрес, карта переедет к точке.</p>
+    <div style="display:grid;grid-template-columns:1fr;gap:14px">
+      <div class="yeti-map">
+        <div class="yeti-map__canvas" ref="{{ mapRef }}" role="application" aria-label="Точки YETI на карте Самары"></div>
+        <a href="{{ mapLink }}" target="_blank" rel="noopener" style="position:absolute;left:12px;bottom:12px;z-index:8;display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:2px solid #0E1A2B;border-radius:999px;background:#fff;color:#0E1A2B;font-family:Unbounded;font-weight:700;font-size:12px;text-decoration:none;box-shadow:0 6px 16px rgba(14,26,43,0.18)">{{ mapLinkLabel }}</a>
+        <button type="button" onClick="{{ resetView }}" style="{{ resetStyle }}">все точки</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <sc-for list="{{ points }}" as="p" hint-placeholder-count="6">
+          <button type="button" onClick="{{ p.select }}" title="{{ p.address }}" style="{{ p.style }}">
+            <span style="{{ p.dotStyle }}">{{ p.num }}</span>
+            <span style="display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-width:0">
+              <span style="font-family:Unbounded;font-weight:700;font-size:13px;line-height:1.15;white-space:nowrap">{{ p.name }}</span>
+              <span style="font-size:11px;font-weight:600;opacity:0.7;line-height:1.15;white-space:nowrap">{{ p.hours }}</span>
+            </span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contacts" style="margin:46px 0 0;background:#0E1A2B;color:#EAF2FF;border-radius:32px 32px 0 0;padding:34px 18px calc(30px + env(safe-area-inset-bottom));scroll-margin-top:76px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:26px">
+      <div>
+        <span style="display:inline-flex;align-items:center;padding:14px 18px;background:#fff;border:2px solid #0E1A2B;border-radius:22px;box-shadow:0 10px 24px rgba(0,0,0,0.28);transform:rotate(-2.5deg)">
+          <img loading="eager" decoding="async" src="assets/brand/logo-yeti-blue.png" alt="We Love Yeti" style="height:clamp(74px,20vw,112px);width:auto;display:block" />
+        </span>
+        <div style="font-family:Unbounded;font-weight:900;font-size:15px;margin-top:12px;letter-spacing:0.06em;opacity:0.6">САМАРА</div>
+        <p style="font-size:14px;line-height:1.5;font-weight:500;opacity:0.65;margin:8px 0 0;max-width:32ch">Сеть bubble tea в Самаре. Варим тапиоку каждое утро, закрываемся, когда заканчивается.</p>
+      </div>
+      <div>
+        <div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;opacity:0.5;margin-bottom:12px">Связаться</div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-family:Unbounded;font-weight:700;font-size:16px">
+          <a href="tel:+79968840808" style="color:#EAF2FF">+7 (996) 884-08-08</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;opacity:0.5;margin-bottom:12px">Соцсети</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <a href="https://t.me/YETIDRINK" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:2px solid rgba(255,244,238,0.3);color:#EAF2FF;font-weight:700;font-size:14px">Telegram</a>
+          <a href="https://vk.com/yeti_drink" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:2px solid rgba(255,244,238,0.3);color:#EAF2FF;font-weight:700;font-size:14px">VK</a>
+          <a href="https://instagram.com/yeti_drink" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:2px solid rgba(255,244,238,0.3);color:#EAF2FF;font-weight:700;font-size:14px">Instagram</a>
+        </div>
+        <a href="https://yetiland-fr.ru" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;min-height:48px;margin-top:18px;padding:0 20px;border-radius:999px;background:#1580F0;color:#fff;font-family:Unbounded;font-weight:700;font-size:14px;text-decoration:none">Купить франшизу YETI <span style="font-size:16px;line-height:1">→</span></a>
+        <div style="font-size:13px;font-weight:600;opacity:0.5;margin-top:22px">© 2026 YETI Samara</div>
+      </div>
+    </div>
+  </footer>
+
+  <button type="button" onClick="{{ openCart }}" style="{{ fabStyle }}">
+    <span style="{{ fabDotStyle }}">{{ fabCount }}</span>
+    <span style="font-family:Unbounded;font-weight:700;font-size:14px;white-space:nowrap">{{ fabLabel }}</span>
+  </button>
+
+  <div onClick="{{ closeSheet }}" style="{{ shadeStyle }}"></div>
+
+  <div role="dialog" aria-label="Заказ" style="{{ sheetStyle }}">
+    <div style="display:flex;align-items:center;gap:12px;padding:16px 18px 12px;border-bottom:2px solid rgba(14,26,43,0.12)">
+      <span style="flex:1;min-width:0;font-family:Unbounded;font-weight:900;font-size:clamp(18px,5vw,24px);letter-spacing:-0.03em">{{ sheetTitle }}</span>
+      <button type="button" onClick="{{ closeSheet }}" aria-label="закрыть" style="flex:0 0 auto;width:40px;height:40px;border-radius:999px;border:2px solid #0E1A2B;background:#fff;font-size:16px;font-weight:700;cursor:pointer;line-height:1">✕</button>
+    </div>
+
+    <div style="flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 18px 16px">
+
+      <div style="{{ cartPane }}">
+        <sc-for list="{{ cartLines }}" as="l" hint-placeholder-count="0">
+          <div style="display:flex;gap:12px;padding:14px 0;border-bottom:2px solid rgba(14,26,43,0.1)">
+            <img src="{{ l.photo }}" alt="{{ l.name }}" loading="lazy" decoding="async" style="{{ l.imgStyle }}" />
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:baseline;gap:10px">
+                <span style="flex:1;min-width:0;font-family:Unbounded;font-weight:700;font-size:15px;line-height:1.15">{{ l.name }}</span>
+                <span style="font-family:Unbounded;font-weight:700;font-size:15px;color:#1580F0;white-space:nowrap">{{ l.sum }}</span>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px">
+                <sc-for list="{{ l.chips }}" as="c" hint-placeholder-count="0">
+                  <button type="button" onClick="{{ c.act }}" style="{{ c.style }}">{{ c.label }}</button>
+                </sc-for>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <span style="display:inline-flex;align-items:center;gap:2px;border:2px solid #0E1A2B;border-radius:999px;background:#fff;overflow:hidden">
+                  <button type="button" onClick="{{ l.dec }}" aria-label="меньше" style="width:38px;height:38px;border:0;background:transparent;font-size:18px;font-weight:700;cursor:pointer;line-height:1">−</button>
+                  <span style="min-width:22px;text-align:center;font-family:Unbounded;font-weight:700;font-size:14px">{{ l.qty }}</span>
+                  <button type="button" onClick="{{ l.inc }}" aria-label="больше" style="width:38px;height:38px;border:0;background:transparent;font-size:18px;font-weight:700;cursor:pointer;line-height:1">+</button>
+                </span>
+                <button type="button" onClick="{{ l.remove }}" style="min-height:38px;padding:0 14px;border:2px solid rgba(14,26,43,0.2);border-radius:999px;background:transparent;font-weight:700;font-size:12px;cursor:pointer;opacity:0.65">убрать</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+        <div style="{{ emptyStyle }}">
+          <span style="font-family:Unbounded;font-weight:900;font-size:20px">пока пусто</span>
+          <span style="font-weight:600;font-size:14px;opacity:0.65;max-width:26ch;text-wrap:pretty">тапни любую карточку в меню — на обороте будет «в корзину»</span>
+          <button type="button" onClick="{{ toMenu }}" style="min-height:48px;padding:0 22px;border-radius:999px;border:2px solid #0E1A2B;background:#1580F0;color:#fff;font-family:Unbounded;font-weight:700;font-size:14px;cursor:pointer">собрать стакан</button>
+        </div>
+      </div>
+
+      <div style="{{ checkoutPane }}">
+        <div style="display:flex;flex-direction:column;gap:18px;padding-top:14px">
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="{{ capStyle }}">точка самовывоза</span>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:8px">
+              <sc-for list="{{ pickPoints }}" as="p" hint-placeholder-count="6">
+                <button type="button" onClick="{{ p.select }}" style="{{ p.style }}">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:13px;line-height:1.15">{{ p.name }}</span>
+                  <span style="font-size:11px;font-weight:600;opacity:0.7;line-height:1.2;text-wrap:pretty">{{ p.address }}</span>
+                  <span style="{{ p.stateStyle }}">{{ p.state }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="{{ capStyle }}">когда забрать</span>
+            <div style="display:flex;gap:8px">
+              <sc-for list="{{ whenOpts }}" as="w" hint-placeholder-count="2">
+                <button type="button" onClick="{{ w.select }}" style="{{ w.style }}">{{ w.label }}</button>
+              </sc-for>
+            </div>
+            <div style="{{ slotsStyle }}">
+              <sc-for list="{{ slotList }}" as="t" hint-placeholder-count="0">
+                <button type="button" onClick="{{ t.select }}" style="{{ t.style }}">{{ t.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="{{ capStyle }}">как вас зовут?</span>
+            <input type="text" value="{{ nmVal }}" onInput="{{ onNm }}" placeholder="имя произнесёт бариста" style="{{ nmStyle }}" />
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="{{ capStyle }}">телефон</span>
+            <!-- Телефон без value: значение в поле держит сама маска (onTel),
+                 иначе при быстром наборе перерисовка возвращает старое. -->
+            <input type="tel" inputMode="numeric" autoComplete="tel" maxLength="18" onInput="{{ onTel }}" placeholder="+7 (999) 123-45-67" style="{{ telStyle }}" />
+            <span style="font-weight:600;font-size:11px;opacity:0.6">сообщим, когда заказ готов</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="{{ capStyle }}">почта для чека</span>
+            <input type="email" value="{{ mailVal }}" onInput="{{ onMail }}" placeholder="ты@почта.ру" style="{{ mailStyle }}" />
+            <span style="{{ mailHintStyle }}">{{ mailHint }}</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button type="button" onClick="{{ toggleComment }}" style="align-self:flex-start;min-height:40px;padding:0 16px;border:2px dashed rgba(14,26,43,0.3);border-radius:999px;background:transparent;font-weight:700;font-size:12px;cursor:pointer">{{ commentBtn }}</button>
+            <textarea onInput="{{ onComment }}" value="{{ commentVal }}" placeholder="без трубочки, поменьше льда…" style="{{ commentStyle }}"></textarea>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="{{ capStyle }}">как оплатить</span>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <sc-for list="{{ pays }}" as="p" hint-placeholder-count="2">
+                <button type="button" onClick="{{ p.select }}" style="{{ p.style }}">
+                  <span style="font-family:Unbounded;font-weight:700;font-size:14px">{{ p.label }}</span>
+                  <span style="font-size:11px;font-weight:600;opacity:0.7">{{ p.note }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+
+          <button type="button" onClick="{{ toggleAgree }}" style="{{ agreeStyle }}">
+            <span style="{{ agreeBoxStyle }}">{{ agreeMark }}</span>
+            <span style="flex:1;min-width:0;font-weight:600;font-size:12px;line-height:1.4;text-align:left;text-wrap:pretty">согласен с офертой и обработкой персональных данных</span>
+          </button>
+        </div>
+      </div>
+
+      <div style="{{ donePane }}">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 0 10px">
+          <span style="font-weight:700;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;opacity:0.55">пароль для кассы</span>
+          <span style="font-family:Unbounded;font-weight:900;font-size:clamp(30px,9vw,52px);line-height:1.05;letter-spacing:0.02em;color:#1580F0;text-align:center;text-wrap:balance">{{ doneCode }}</span>
+          <span style="font-weight:600;font-size:13px;opacity:0.7;text-align:center;text-wrap:pretty">{{ doneNote }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;padding:14px;border:2px solid #0E1A2B;border-radius:22px;background:#fff">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+            <span style="font-family:Unbounded;font-weight:700;font-size:15px">{{ donePoint }}</span>
+            <span style="font-family:Unbounded;font-weight:700;font-size:15px;color:#1580F0;white-space:nowrap">{{ doneTime }}</span>
+          </div>
+          <span style="font-weight:600;font-size:13px;opacity:0.7;line-height:1.35">{{ doneAddress }}</span>
+          <span style="display:block;height:2px;background:rgba(14,26,43,0.12)"></span>
+          <sc-for list="{{ doneLines }}" as="l" hint-placeholder-count="0">
+            <span style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-weight:700;font-size:13px">
+              <span style="flex:1;min-width:0">{{ l.title }}</span>
+              <span style="white-space:nowrap;opacity:0.7">{{ l.sum }}</span>
+            </span>
+          </sc-for>
+          <span style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-family:Unbounded;font-weight:700;font-size:15px;padding-top:4px">
+            <span>итого</span><span>{{ doneSum }}</span>
+          </span>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:14px">
+          <sc-for list="{{ statusSteps }}" as="st" hint-placeholder-count="3">
+            <span style="{{ st.style }}">{{ st.label }}</span>
+          </sc-for>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:8px;padding:14px 18px calc(16px + env(safe-area-inset-bottom));border-top:2px solid rgba(14,26,43,0.12);background:#fff">
+      <button type="button" onClick="{{ primaryAct }}" style="{{ primaryStyle }}">{{ primaryLabel }}</button>
+      <span style="{{ hintStyle }}">{{ sheetHint }}</span>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* ─────────────────────────────────────────────────────────────────────────
+   YETI · логика страницы
+
+   Меню и точки лежат в data/*.js, помощники — в js/*.js (см. README.md).
+   Здесь только состояние страницы и сборка значений для вёрстки:
+   что в фигурных скобках {{ ... }} в разметке — то и собирается ниже.
+   ───────────────────────────────────────────────────────────────────────── */
+
+const { CATS, ITEMS, FILTERS, SIZES, TOPPINGS, NUTRI } = YETI.menu;
+const POINTS = YETI.points;
+const SEASONAL = YETI.seasonal;
+
+const COLORS = YETI.config.colors;
+const PINK = COLORS.blue;
+const INK = COLORS.ink;
+
+const chip = YETI.cards.chip;
+const ui = YETI.ui;
+const O = YETI.order;
+
+/* Разделы меню: категория из data/menu.js → секция на странице → лента карточек.
+   Порядок здесь = порядок кнопок в карусели «Что будешь?». */
+const SECTIONS = [
+  { cat: "bubble",    sec: "bubble",    strip: "bubbleStrip", label: "Bubble tea" },
+  { cat: "tea",       sec: "tea",       strip: "teaStrip",    label: "Tea" },
+  { cat: "coffee",    sec: "coffee",    strip: "coffeeStrip", label: "Coffee" },
+  { cat: "matcha",    sec: "matcha",    strip: "matchaStrip", label: "Matcha" },
+  { cat: "cheese",    sec: "cheese",    strip: "cheeseStrip", label: "Cream cheese" },
+  { cat: "icecoffee", sec: "icecoffee", strip: "iceStrip",    label: "Ice coffee" },
+  { cat: "colddrink", sec: "colddrink", strip: "coldStrip",   label: "Cold drinks" },
+  { cat: "mochi",     sec: "mochi",     strip: "mochiStrip",  label: "Moti" },
+  { cat: "donut",     sec: "donuts",    strip: "donutStrip",  label: "Donut" },
+  { cat: "poke",      sec: "poke",      strip: "pokeStrip",   label: "Poke" },
+];
+
+class Component extends DCLogic {
+  mapRef = React.createRef();
+  flipped = {};
+  seasonOpen = null;
+
+  state = {
+    pick: null,
+    cat: "all",
+    filters: [],
+    size: "m",
+    toppings: ["tapioca"],
+    base: ITEMS[0],
+    point: null,
+
+    /* Заказ с самовывозом */
+    cart: O.load(),
+    stage: null,                       /* null | "cart" | "checkout" | "done" */
+    pickPoint: O.loadPoint(POINTS) || POINTS[0],
+    when: "asap",                      /* "asap" | "time" */
+    slot: null,
+    nm: "",
+    tel: "",
+    mail: "",
+    comment: "",
+    showComment: false,
+    touched: false,
+    agree: false,
+    pay: "sbp",
+    paying: false,                     /* ждём страницу оплаты банка */
+    payErr: "",
+    done: null,
+  };
+
+  /* Выбранный объём на обороте карточки: { "bubbleStrip-0": "650" } */
+  vol = {};
+
+  /* Что было в поле телефона до последнего нажатия — маске нужно, чтобы
+     backspace по скобке или дефису стирал цифру. Обновляется сразу, без
+     ожидания перерисовки. */
+  telPrev = "";
+
+  /* ── Карта точек ──────────────────────────────────────────────────────── */
+
+  syncMap() {
+    YETI.map.sync({
+      host: this.mapRef.current,
+      points: POINTS,
+      selected: this.state.point,
+      /* Тап по уже выбранному пину снимает выбор и возвращает вид на Самару. */
+      onSelect: (p) => this.selectPoint(p),
+    });
+  }
+
+  /** Выбирает точку, а если она уже выбрана — снимает выбор. */
+  selectPoint(p) {
+    this.setState((s) => ({ point: s.point && s.point.id === p.id ? null : p }));
+  }
+
+  /* ── Меню ─────────────────────────────────────────────────────────────── */
+
+  /** Кнопка категории в карусели «Что будешь?». */
+  cupNavItem(section, idx) {
+    const s = this.state;
+    const list = ITEMS.filter((x) => x.cat === section.cat && x.photo);
+    const on = s.pick === section.sec;
+    const min = list.length ? Math.min.apply(null, list.map((x) => x.price)) : 0;
+    const word = list.length === 1 ? "вкус" : list.length < 5 ? "вкуса" : "вкусов";
+
+    return {
+      key: section.cat,
+      href: "#" + section.sec,
+      label: section.label,
+      src: list.length ? list[0].photo : "",
+      num: String(idx + 1).padStart(2, "0"),
+      meta: list.length ? list.length + " " + word + " · от " + min + " ₽" : "",
+      style: `display:inline-flex;flex:0 0 auto;scroll-snap-align:center;white-space:nowrap;align-items:center;min-height:44px;padding:0 14px;border:0;border-radius:999px;background:${on ? PINK : "transparent"};color:#fff;text-decoration:none;box-shadow:${on ? "0 8px 18px rgba(21,128,240,0.32)" : "none"};transition:background .16s ease,color .16s ease`,
+      numStyle: "display:none",
+      labelStyle: `font-family:Unbounded;font-weight:900;font-size:clamp(13px,3.4vw,17px);line-height:1.1;letter-spacing:-0.01em;text-transform:uppercase;color:#fff;-webkit-text-stroke:3.4px ${INK};paint-order:stroke fill;overflow-wrap:normal;word-break:keep-all`,
+      metaStyle: "display:none",
+      warm: () => ui.warmCat(this, section.cat),
+      pick: (e) => this.pickSection(e, section, on),
+    };
+  }
+
+  /** Раскрывает секцию с лентой и подводит к ней страницу. */
+  pickSection(e, section, isOpen) {
+    e.preventDefault();
+    if (!isOpen) {
+      ui.warmCat(this, section.cat);
+      ui.centerCat(section.sec);
+    }
+    this.setState({ pick: isOpen ? null : section.sec }, () => {
+      if (isOpen) return;
+      const land = () => {
+        const el = document.getElementById(section.sec);
+        if (!el) return;
+        const target = window.scrollY + el.getBoundingClientRect().top - 74;
+        if (Math.abs(target - window.scrollY) < 6) return;
+        ui.smoothScrollTo(this, target, 760);
+      };
+      /* Секция раскрывается с анимацией — целимся в неё несколько раз. */
+      requestAnimationFrame(() => requestAnimationFrame(land));
+      setTimeout(land, 120);
+      setTimeout(land, 560);
+    });
+  }
+
+
+  /* ── Заказ с самовывозом ──────────────────────────────────────────────── */
+
+  setCart(next) {
+    O.save(next);
+    this.setState({ cart: next });
+  }
+
+  addToCart(item, vol) {
+    this.setCart(O.add(this.state.cart, item, vol));
+  }
+
+  openSheet(stage) {
+    document.body.style.overflow = "hidden";
+    this.setState({ stage: stage });
+  }
+
+  closeSheet = () => {
+    document.body.style.overflow = "";
+    if (this.state.stage === "done") this.setState({ stage: null, done: null, payErr: "" });
+    else this.setState({ stage: null, payErr: "" });
+  };
+
+  /** Заказ целиком: и для экрана «принят», и для чека кассы. */
+  buildOrder() {
+    const s = this.state;
+    const pt = s.pickPoint || POINTS[0];
+    return {
+      id: "Y" + Date.now().toString(36).toUpperCase(),
+      code: O.code(),
+      sum: O.total(s.cart),
+      sumLabel: O.money(O.total(s.cart)),
+      time: s.when === "asap" ? "~" + O.asapLabel() : O.hhmm(s.slot),
+      point: { id: pt.id, name: pt.name, address: pt.address, hours: pt.hours },
+      pay: s.pay,
+      paid: false,
+      name: s.nm.trim(),
+      phone: O.phoneRaw(s.tel),
+      mail: s.mail.trim(),
+      comment: s.showComment ? s.comment.trim() : "",
+      cart: s.cart,
+      lines: s.cart.map((l) => ({
+        key: l.key,
+        title: l.name + (l.vol ? " · " + l.vol + " мл" : "") + (l.qty > 1 ? " × " + l.qty : ""),
+        sum: O.money(O.lineSum(l)),
+      })),
+    };
+  }
+
+  /** Экран «заказ принят»: показываем пароль для кассы и чистим корзину. */
+  finishOrder(order) {
+    document.body.style.overflow = "hidden";
+    this.setState({ stage: "done", done: order, cart: [], slot: null, agree: false, paying: false, payErr: "" });
+    O.save([]);
+  }
+
+  /** Оплата.
+      Касса подключена (YETI.config.kassa.provider) — уходим на защищённую
+      страницу банка и возвращаемся сюда уже с оплаченным заказом.
+      Касса ещё не подключена — заказ просто оформляется, без списания. */
+  payNow() {
+    const order = this.buildOrder();
+
+    if (!YETI.pay.on()) {
+      this.finishOrder(order);
+      return;
+    }
+
+    this.setState({ paying: true, payErr: "" });
+    YETI.pay.start(order).catch((err) => {
+      this.setState({
+        paying: false,
+        payErr: "оплата не началась — " + ((err && err.message) || "нет связи с кассой"),
+      });
+    });
+  }
+
+  /** Гость вернулся со страницы банка. */
+  afterPay() {
+    const back = YETI.pay.returned();
+    if (!back) return;
+    const fail = () =>
+      this.setState({ stage: "checkout", paying: false, payErr: "оплата не прошла — попробуй ещё раз" }, () => {
+        document.body.style.overflow = "hidden";
+      });
+    if (!back.ok) {
+      fail();
+      return;
+    }
+    /* Возврат из банка — ещё не доказательство: подтверждает свой сервер. */
+    YETI.pay.check(back.id).then((paid) => {
+      if (paid) this.finishOrder(Object.assign({}, back.order, { paid: true }));
+      else fail();
+    });
+  }
+
+  /** Значения корзины, оформления и экрана «заказ принят». */
+  orderVals() {
+    const s = this.state;
+    const cnt = O.count(s.cart);
+    const sum = O.total(s.cart);
+    const pt = s.pickPoint || POINTS[0];
+    const st = O.pointState(pt);
+    const slots = O.slots(pt);
+    const stage = s.stage;
+
+    const nameOk = s.nm.trim().length >= 2;
+    const telOk = O.phoneOk(s.tel);
+    const mailOk = O.emailOk(s.mail);
+    const closedNow = st.key === "closed" && s.when === "asap";
+    const timeOk = s.when === "asap" ? !closedNow : s.slot != null;
+    const canPay = cnt > 0 && nameOk && telOk && mailOk && timeOk && s.agree;
+    const kassaOn = YETI.pay.on();
+
+    const CAP = "font-weight:800;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.5";
+    const field = (ok) =>
+      `min-height:54px;padding:0 16px;border:2px solid ${ok ? INK : "#E4572E"};border-radius:18px;background:#fff;font-family:Manrope;font-weight:700;font-size:15px;color:${INK};outline:none`;
+    const small = (on) =>
+      `min-height:40px;padding:0 13px;border-radius:999px;cursor:pointer;font-weight:800;font-size:12px;border:2px solid ${on ? PINK : "rgba(14,26,43,0.22)"};background:${on ? PINK : "transparent"};color:${on ? "#fff" : INK}`;
+
+    const primary = {
+      cart: {
+        label: cnt ? "оформить · " + O.money(sum) : "меню",
+        act: () => (cnt ? this.setState({ stage: "checkout", payErr: "" }) : this.closeSheet()),
+        on: true,
+        hint: "только самовывоз · доставки нет",
+      },
+      checkout: {
+        label: s.paying
+          ? "переходим к оплате…"
+          : "оплатить " + O.money(sum) + " · " + (s.pay === "sbp" ? "СБП" : "картой"),
+        act: () => (s.paying ? undefined : canPay ? this.payNow() : this.setState({ touched: true })),
+        on: canPay && !s.paying,
+        hint: s.payErr
+          ? s.payErr
+          : canPay
+          ? kassaOn
+            ? "оплата пройдёт на защищённой странице банка"
+            : "касса подключается — заказ примем без списания"
+          : cnt === 0
+          ? "корзина пуста"
+          : closedNow
+          ? "точка сейчас закрыта — выбери «ко времени»"
+          : !timeOk
+          ? "выбери время из списка"
+          : !nameOk
+          ? "напиши, как вас зовут"
+          : !telOk
+          ? "нужен телефон — пришлём статус заказа"
+          : !mailOk
+          ? "укажи почту — на неё придёт чек"
+          : "отметь согласие с офертой",
+      },
+      done: {
+        label: "показать бариста",
+        act: () => this.closeSheet(),
+        on: true,
+        hint: "пароль виден в этом окне и придёт в SMS",
+      },
+    }[stage || "cart"];
+
+    return {
+      /* Кнопка корзины */
+      fabStyle: `position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:60;display:${cnt && !stage ? "inline-flex" : "none"};align-items:center;gap:10px;min-height:56px;padding:0 20px 0 10px;border-radius:999px;border:2px solid ${INK};background:${PINK};color:#fff;cursor:pointer;box-shadow:0 12px 28px rgba(14,26,43,0.28)`,
+      fabDotStyle: `display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;background:#fff;color:${PINK};font-family:Unbounded;font-weight:900;font-size:15px`,
+      fabCount: String(cnt),
+      fabLabel: O.money(sum),
+      openCart: () => this.openSheet("cart"),
+      closeSheet: this.closeSheet,
+      toMenu: () => {
+        this.closeSheet();
+        const el = document.getElementById("pick");
+        if (el) ui.smoothScrollTo(this, el);
+      },
+
+      shadeStyle: `position:fixed;inset:0;z-index:80;background:rgba(14,26,43,0.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:${stage ? "block" : "none"}`,
+      sheetStyle: `position:fixed;left:0;right:0;bottom:0;z-index:81;display:${stage ? "flex" : "none"};flex-direction:column;max-height:min(92vh,860px);margin:0 auto;max-width:640px;background:${COLORS.page};color:${INK};border:2px solid ${INK};border-bottom:0;border-radius:28px 28px 0 0;box-shadow:0 -18px 40px rgba(14,26,43,0.3);animation:yeti-sheet .34s cubic-bezier(.22,.8,.24,1) both`,
+      sheetTitle: stage === "checkout" ? "оформление" : stage === "done" ? "заказ принят" : "корзина",
+      capStyle: CAP,
+
+      cartPane: `display:${stage === "cart" ? "block" : "none"}`,
+      checkoutPane: `display:${stage === "checkout" ? "block" : "none"}`,
+      donePane: `display:${stage === "done" ? "block" : "none"}`,
+      emptyStyle: `display:${cnt ? "none" : "flex"};flex-direction:column;align-items:center;gap:12px;padding:38px 0 26px;text-align:center`,
+
+      cartLines: s.cart.map((l) => {
+        const item = ITEMS.find((x) => x.id === l.id);
+        return {
+          key: l.key,
+          name: l.name + (l.vol ? " · " + l.vol + " мл" : ""),
+          photo: l.photo || (item && item.photo) || "",
+          imgStyle: `flex:0 0 auto;width:74px;height:74px;border-radius:18px;border:2px solid ${INK};object-fit:cover;background:${COLORS.tint};display:block`,
+          sum: O.money(O.lineSum(l)),
+          qty: String(l.qty),
+          chips: [],
+          inc: () => this.setCart(O.bump(s.cart, l.key, 1)),
+          dec: () => this.setCart(O.bump(s.cart, l.key, -1)),
+          remove: () => this.setCart(O.drop(s.cart, l.key)),
+        };
+      }),
+
+      pickPoints: POINTS.map((p) => {
+        const on = pt.id === p.id;
+        const ps = O.pointState(p);
+        return {
+          key: String(p.id),
+          name: p.name,
+          address: p.address,
+          state: ps.label,
+          stateStyle: `font-weight:800;font-size:10px;letter-spacing:0.04em;text-transform:uppercase;color:${on ? "#fff" : ps.key === "closed" ? "#B03A18" : ps.key === "soon" ? "#9A6100" : "#1B7F3B"};opacity:${on ? 0.9 : 1}`,
+          style: `display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:100%;padding:11px 14px;border:2px solid ${on ? PINK : "rgba(14,26,43,0.2)"};border-radius:18px;background:${on ? PINK : "#fff"};color:${on ? "#fff" : INK};cursor:pointer;text-align:left;font:inherit`,
+          select: () => {
+            O.savePoint(p);
+            this.setState({ pickPoint: p, slot: null });
+          },
+        };
+      }),
+
+      whenOpts: [
+        { id: "asap", label: "как можно скорее · ~" + O.asapLabel() },
+        { id: "time", label: "ко времени" },
+      ].map((w) => ({
+        key: w.id,
+        label: w.label,
+        style: `flex:1 1 0;min-height:50px;padding:0 12px;border-radius:18px;cursor:pointer;border:2px solid ${s.when === w.id ? PINK : "rgba(14,26,43,0.2)"};background:${s.when === w.id ? PINK : "#fff"};color:${s.when === w.id ? "#fff" : INK};font-family:Unbounded;font-weight:700;font-size:12px;line-height:1.2`,
+        select: () => this.setState({ when: w.id, slot: null }),
+      })),
+      slotsStyle: `display:${s.when === "time" ? "flex" : "none"};flex-wrap:wrap;gap:6px;padding-top:4px`,
+      slotList: slots.map((t) => ({
+        key: String(t),
+        label: O.hhmm(t),
+        style: small(s.slot === t),
+        select: () => this.setState({ slot: t }),
+      })),
+
+      nmVal: s.nm,
+      onNm: (e) => this.setState({ nm: e.target.value }),
+      nmStyle: field(!s.touched || nameOk),
+      /* В поле телефона живут только цифры: всё остальное маска выкидывает
+         сразу в момент ввода, а очищенное значение кладёт обратно в поле.
+         Состояние здесь — копия для проверки и для чека, поле ведёт себя
+         само (см. разметку: у него нет value). */
+      onTel: (e) => {
+        const next = O.phoneMask(e.target.value, this.telPrev);
+        this.telPrev = next;
+        if (e.target.value !== next) e.target.value = next;
+        if (next !== this.state.tel) this.setState({ tel: next });
+      },
+      telStyle: field((!s.tel || telOk) && (!s.touched || telOk)),
+      mailVal: s.mail,
+      onMail: (e) => this.setState({ mail: e.target.value }),
+      mailStyle: field((!s.mail || mailOk) && (!s.touched || mailOk)),
+      mailHint: s.mail && !mailOk ? "проверь адрес — похоже, есть опечатка" : "электронный чек по 54-ФЗ",
+      mailHintStyle: `font-weight:600;font-size:11px;opacity:${s.mail && !mailOk ? 1 : 0.6};color:${s.mail && !mailOk ? "#B03A18" : INK}`,
+
+      commentBtn: s.showComment ? "убрать комментарий" : "+ комментарий к заказу",
+      toggleComment: () => this.setState({ showComment: !s.showComment }),
+      commentVal: s.comment,
+      onComment: (e) => this.setState({ comment: e.target.value }),
+      commentStyle: `display:${s.showComment ? "block" : "none"};min-height:84px;padding:12px 16px;border:2px solid ${INK};border-radius:18px;background:#fff;font-family:Manrope;font-weight:600;font-size:14px;color:${INK};resize:vertical;outline:none`,
+
+      pays: O.PAYS.map((p) => ({
+        key: p.id,
+        label: p.label,
+        note: p.note,
+        style: `flex:1 1 140px;display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:58px;padding:10px 16px;border-radius:18px;cursor:pointer;text-align:left;border:2px solid ${s.pay === p.id ? PINK : "rgba(14,26,43,0.2)"};background:${s.pay === p.id ? PINK : "#fff"};color:${s.pay === p.id ? "#fff" : INK}`,
+        select: () => this.setState({ pay: p.id }),
+      })),
+
+      toggleAgree: () => this.setState({ agree: !s.agree }),
+      agreeStyle:
+        `display:flex;align-items:flex-start;gap:11px;padding:12px 14px;border:2px solid ${s.touched && !s.agree ? "#E4572E" : "rgba(14,26,43,0.2)"};border-radius:18px;background:#fff;cursor:pointer;font:inherit;color:inherit`,
+      agreeBoxStyle: `flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;border:2px solid ${s.agree ? PINK : "rgba(14,26,43,0.35)"};background:${s.agree ? PINK : "#fff"};color:#fff;font-size:13px;font-weight:900;line-height:1`,
+      agreeMark: s.agree ? "✓" : "",
+
+      doneCode: s.done ? s.done.code : "",
+      donePoint: s.done ? s.done.point.name : "",
+      doneAddress: s.done ? s.done.point.address + " · " + s.done.point.hours : "",
+      doneTime: s.done ? s.done.time : "",
+      doneSum: s.done ? s.done.sumLabel : "",
+      doneNote:
+        s.done && s.done.paid
+          ? "назови пароль на кассе — заказ уже оплачен"
+          : "назови пароль на кассе — оплата при получении",
+      doneLines: s.done ? s.done.lines : [],
+      statusSteps: ["принят", "готовим", "готов"].map((label, i) => ({
+        key: label,
+        label: label,
+        style: `flex:1 1 0;text-align:center;padding:11px 6px;border-radius:14px;font-family:Unbounded;font-weight:700;font-size:12px;border:2px solid ${i === 0 ? INK : "rgba(14,26,43,0.18)"};background:${i === 0 ? INK : "transparent"};color:${i === 0 ? COLORS.cream : INK};opacity:${i === 0 ? 1 : 0.45}`,
+      })),
+
+      primaryLabel: primary.label,
+      primaryAct: primary.act,
+      primaryStyle: `min-height:58px;padding:0 20px;border-radius:20px;border:2px solid ${INK};background:${primary.on ? PINK : "rgba(14,26,43,0.12)"};color:${primary.on ? "#fff" : "rgba(14,26,43,0.5)"};font-family:Unbounded;font-weight:700;font-size:16px;cursor:${primary.on ? "pointer" : "not-allowed"}`,
+      sheetHint: primary.hint,
+      hintStyle:
+        stage === "checkout" && (s.payErr || (s.touched && !canPay))
+          ? "text-align:center;font-weight:800;font-size:13px;color:#B03A18"
+          : "text-align:center;font-weight:600;font-size:11px;opacity:0.6",
+    };
+  }
+
+  /* ── Значения для вёрстки ─────────────────────────────────────────────── */
+
+  renderVals() {
+    const s = this.state;
+    const items = ITEMS.filter(
+      (i) => (s.cat === "all" || i.cat === s.cat) && s.filters.every((f) => i.tags.includes(f))
+    );
+    const sizeDelta = (SIZES.find((x) => x.id === s.size) || SIZES[0]).delta;
+    const topSum = TOPPINGS.filter((t) => s.toppings.includes(t.id)).reduce((a, t) => a + t.price, 0);
+
+    const vals = {
+      cupNav: SECTIONS.map((section, idx) => this.cupNavItem(section, idx)),
+
+      menuCountLabel: `${items.length} позиций`,
+
+      categories: CATS.map((c) => ({
+        label: c.label,
+        style: chip(s.cat === c.id),
+        select: () => this.setState({ cat: c.id }),
+      })),
+
+      filters: FILTERS.map((f) => ({
+        label: f.label,
+        style:
+          chip(s.filters.includes(f.id)) +
+          ";font-family:Manrope;font-weight:800;font-size:12px;min-height:38px;padding:0 14px",
+        toggle: () =>
+          this.setState((p) => ({
+            filters: p.filters.includes(f.id)
+              ? p.filters.filter((x) => x !== f.id)
+              : p.filters.concat(f.id),
+          })),
+      })),
+
+      items: items.map((i) => ({
+        name: i.name,
+        desc: i.desc,
+        photos: i.photo
+          ? [{ src: i.photo, posStyle: i.name === "Американо" ? "center 72%" : "center center" }]
+          : [],
+        ringStyle:
+          !i.photo && i.cat === "donut"
+            ? "position:absolute;width:70px;height:70px;border-radius:999px;border:13px solid #1580F0;opacity:0.28"
+            : "display:none",
+        volLabel: i.price650 ? "500 / 650 мл" : "",
+        volStyle: i.price650
+          ? "font-weight:700;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;opacity:0.5"
+          : "display:none",
+        shot: i.photo ? "" : i.shot,
+        shotStyle: i.photo
+          ? "display:none"
+          : "font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:0.04em;opacity:0.55;text-align:center;padding:0 10px",
+        priceLabel: YETI.cards.priceLabel(i),
+        badge: i.tags.includes("hit") ? "хит" : "",
+        badgeStyle: i.tags.includes("hit")
+          ? `position:absolute;top:10px;left:10px;padding:5px 11px;border-radius:999px;background:${PINK};color:#fff;border:2px solid ${INK};font-family:Unbounded;font-weight:700;font-size:11px`
+          : "display:none",
+        pick: () => this.setState({ base: i, cat: s.cat }),
+      })),
+
+      /* Конструктор своего стакана */
+      builderName: s.base.name,
+      sizes: SIZES.map((x) => ({
+        label: x.label,
+        style: chip(s.size === x.id, true),
+        select: () => this.setState({ size: x.id }),
+      })),
+      toppings: TOPPINGS.map((t) => ({
+        label: `${t.label} · ${t.price} ₽`,
+        style: chip(s.toppings.includes(t.id), true) + ";font-family:Manrope;font-weight:800;font-size:13px",
+        toggle: () =>
+          this.setState((p) => ({
+            toppings: p.toppings.includes(t.id)
+              ? p.toppings.filter((x) => x !== t.id)
+              : p.toppings.concat(t.id),
+          })),
+      })),
+      totalLabel: `${s.base.price + sizeDelta + topSum} ₽`,
+
+      seasonal: SEASONAL.map((d, i) =>
+        Object.assign({}, d, {
+          key: d.name,
+          slotStyle: "perspective:1200px",
+          innerStyle: `position:relative;width:100%;aspect-ratio:5/8;cursor:pointer;touch-action:manipulation;transform-style:preserve-3d;transition:transform .26s cubic-bezier(.3,.8,.3,1);will-change:transform;transform:rotateY(${this.seasonOpen === i ? 180 : 0}deg)`,
+          nutrients: [
+            { key: "kcal", val: String(d.kcal), label: "ккал" },
+            { key: "p", val: d.p + " г", label: "белки" },
+            { key: "f", val: d.f + " г", label: "жиры" },
+            { key: "c", val: d.c + " г", label: "углев." },
+          ],
+          flip: (e) => YETI.cards.tapGuard(this, e, () => this.flipSeason(i)),
+          stop: (e) => e.stopPropagation(),
+          addLabel: "в корзину · " + d.price,
+          addStyle:
+            "flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:100%;height:32px;" +
+            "min-height:32px;max-height:32px;margin-top:8px;border-radius:999px;cursor:pointer;box-sizing:border-box;" +
+            "border:2px solid #1580F0;background:#1580F0;color:#fff;font-family:Unbounded;" +
+            "font-weight:700;font-size:clamp(10px,2.8vw,11px);white-space:nowrap",
+          add: (e) => {
+            e.stopPropagation();
+            this.addToCart(
+              {
+                id: 900 + i,
+                cat: "season",
+                name: d.name,
+                price: parseInt(String(d.price).replace(/\D/g, ""), 10) || 0,
+                photo: d.src,
+              },
+              null
+            );
+          },
+        })
+      ),
+
+      /* Точки на карте */
+      points: POINTS.map((p, idx) => {
+        const active = !!s.point && s.point.id === p.id;
+        return {
+          num: String(idx + 1),
+          name: p.name,
+          address: p.address,
+          hours: p.hours,
+          format: p.format,
+          style: `display:inline-flex;align-items:center;gap:9px;flex:0 0 auto;max-width:100%;padding:8px 16px 8px 9px;border:2px solid ${active ? PINK : INK};border-radius:999px;background:${active ? PINK : "#fff"};color:${active ? "#fff" : INK};min-height:48px;cursor:pointer;font:inherit;text-align:left;box-shadow:${active ? "0 8px 18px rgba(21,128,240,0.3)" : "none"};transition:background .16s ease,border-color .16s ease`,
+          dotStyle: `display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:30px;height:30px;border-radius:999px;background:${active ? "#fff" : COLORS.tint};color:${active ? PINK : INK};font-family:Unbounded;font-weight:700;font-size:13px`,
+          select: () => this.selectPoint(p),
+        };
+      }),
+      mapRef: this.mapRef,
+      mapLink: YETI.map.externalLink(POINTS, s.point),
+      mapLinkLabel: s.point ? "открыть точку" : "открыть в Яндекс.Картах",
+      resetView: () => this.setState({ point: null }),
+      resetStyle: `position:absolute;right:12px;top:12px;box-shadow:0 4px 12px rgba(14,26,43,0.2);min-height:38px;padding:0 14px;border-radius:999px;border:2px solid ${INK};background:${s.point ? "#fff" : PINK};color:${s.point ? INK : "#fff"};font-family:Unbounded;font-weight:700;font-size:12px;cursor:pointer;z-index:8`,
+    };
+
+    Object.assign(vals, this.orderVals());
+
+    /* Секции меню: показать/скрыть + карточки ленты. */
+    SECTIONS.forEach((section) => {
+      vals["sec_" + section.sec] =
+        s.pick === section.sec
+          ? "padding:36px 0 0;scroll-margin-top:76px;contain:paint;animation:yeti-reveal .42s cubic-bezier(.22,.61,.36,1) both"
+          : "display:none";
+      vals[section.strip] = YETI.cards.strip(
+        ITEMS.filter((i) => i.cat === section.cat && i.photo)
+      );
+    });
+
+    return YETI.cards.decorate(vals, this);
+  }
+
+  /** Сезонная карточка переворачивается на состав и сама закрывается. */
+  flipSeason(i) {
+    clearTimeout(this._seasonT);
+    this.seasonOpen = this.seasonOpen === i ? null : i;
+    if (this.seasonOpen !== null) {
+      this._seasonT = setTimeout(() => {
+        this.seasonOpen = null;
+        this.forceUpdate();
+      }, 5000);
+    }
+    this.forceUpdate();
+  }
+
+  /* ── Жизненный цикл ───────────────────────────────────────────────────── */
+
+  componentDidMount() {
+    this.afterPay();
+    this.syncMap();
+    ui.initStrips();
+    ui.autoLoop(this);
+    ui.initCatRail();
+    ui.hydrateImgs();
+    requestAnimationFrame(() => ui.hydrateImgs());
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      /* Свою плавную прокрутку делаем сами — она мягче браузерной. */
+      document.documentElement.style.scrollBehavior = "auto";
+      this.onClick = (e) => {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a || a.closest("#pick")) return;
+        const el = document.getElementById(a.getAttribute("href").slice(1));
+        if (!el) return;
+        e.preventDefault();
+        ui.smoothScrollTo(this, el);
+        if (history.replaceState) history.replaceState(null, "", a.getAttribute("href"));
+      };
+      document.addEventListener("click", this.onClick);
+      ui.revealOnScroll();
+    }
+
+    ui.navSpy();
+  }
+
+  componentDidUpdate() {
+    ui.hydrateImgs();
+    this.syncMap();
+    ui.initStrips();
+    ui.initCatRail();
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+/* YETI · базовые стили страницы
+   Цвета бренда: синий #1580F0, чернила #0E1A2B, фон #E7F0FF, светлый #DCEAFF. */
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: #E7F0FF;
+  color: #0E1A2B;
+  font-family: Manrope, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: #0E1A2B; text-decoration: none; }
+a:hover { color: #1580F0; }
+::selection { background: #1580F0; color: #fff; }
+
+img { backface-visibility: hidden; transform: translateZ(0); }
+button, a {
+  transition: background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+/* Горизонтальные ленты и меню скроллятся без видимой полосы. */
+[data-nav="main"]::-webkit-scrollbar,
+[data-catrail]::-webkit-scrollbar,
+[data-swipe]::-webkit-scrollbar { display: none; }
+
+/* Карточка, перевёрнутая на состав и КБЖУ. */
+[data-flip="1"] { transform: rotateY(180deg) !important; }
+
+/* Клики принимает только та сторона карточки, которая видна: иначе
+   лицевое фото перехватывает нажатие на кнопку «в корзину» на обороте. */
+[data-cardid] > div { pointer-events: none; }
+[data-cardid] > figure { pointer-events: auto; }
+[data-flip="1"] > div { pointer-events: auto; }
+[data-flip="1"] > figure { pointer-events: none; }
+
+/* Фото уходит сразу, не «просвечивает» сквозь оборот на Android. */
+[data-cardid] > figure { transition: opacity .14s linear .08s; }
+[data-flip="1"] > figure { opacity: 0; transition-delay: .04s; }
+
+@keyframes yeti-marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+@keyframes yeti-strip   { from { transform: translate3d(-50%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
+@keyframes yeti-reveal  { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+/* Корзина-шторка выезжает снизу. */
+@keyframes yeti-sheet   { from { transform: translate3d(0, 100%, 0); } to { transform: none; } }
+@keyframes yeti-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-2deg); }
+  50%      { transform: translate3d(0, -10px, 0) rotate(2deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; scroll-behavior: auto !important; }
+}
